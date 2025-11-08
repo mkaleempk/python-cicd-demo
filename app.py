@@ -1,15 +1,23 @@
 # app.py
-import datetime
+from flask import Flask
 import socket
+import datetime
 
-def main():
-    print("=" * 50)
-    print("🚀 Simple Python App Deployed via Jenkins")
-    print("=" * 50)
-    print(f"🕒 Time now: {datetime.datetime.now()}")
-    print(f"💻 Hostname: {socket.gethostname()}")
-    print("✅ Jenkins CI/CD test successful!")
-    print("=" * 50)
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return f"""
+    <html>
+    <head><title>Jenkins Python CI/CD Demo</title></head>
+    <body style='text-align:center;font-family:sans-serif;'>
+        <h1 style='color:green;'>🚀 Python Web App via Jenkins CI/CD</h1>
+        <p>✅ Deployment successful!</p>
+        <p>🕒 Time now: {datetime.datetime.now()}</p>
+        <p>💻 Hostname: {socket.gethostname()}</p>
+    </body>
+    </html>
+    """
 
 if __name__ == "__main__":
-    main()
+    app.run(host="0.0.0.0", port=5000)
